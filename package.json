@@ -1,0 +1,20 @@
+{
+  "name": "anonymous-chat-app-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "@graphql-yoga/node": "^2.6.0",
+    "graphql": "^16.5.0",
+    "nanoid": "^3.3.4"
+  }
+}
