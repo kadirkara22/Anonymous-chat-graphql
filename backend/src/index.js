@@ -1,6 +1,6 @@
-const { createServer, createPubSub, pipe } = require('@graphql-yoga/node')
-const { nanoid } = require('nanoid')
-
+import { createServer, createPubSub, pipe, Repeater, map } from '@graphql-yoga/node'
+import { nanoid } from 'nanoid'
+//import pubsub from './pubsub'
 const messages = []
 
 
@@ -21,7 +21,7 @@ type Mutation {
 }
 
 type Subscription {
-    createdMessage: [Message!]
+    messages: [Message!]
 }
 
 `
@@ -34,17 +34,26 @@ const resolvers = {
         createMessage: (_, { message }, { messages, pubsub }) => {
             const newMessage = { userID: nanoid(), ...message }
             messages.push(newMessage)
-            pubsub.publish('createdMessage', { createdMessage: newMessage })
+            pubsub.publish('messages:change')
             return newMessage
 
         }
     },
     Subscription: {
-        createdMessage: {
-            async *subscribe(_, __, { messages, pubsub }) {
-                pubsub.subscribe('createdMessage', { createdMessage: messages })
-                console.log(messages)
-            },
+        messages: {
+            subscribe: (_, __, { pubsub }) =>
+                pipe(
+                    Repeater.merge([
+                        // cause an initial event so the
+                        // globalCounter is streamed to the client
+                        // upon initiating the subscription
+                        undefined,
+                        // event stream for future updates
+                        pubsub.subscribe('messages:change'),
+                    ]),
+                    // map all stream values to the latest globalCounter
+                    map(() => messages),
+                ),
             resolve: (payload) => payload,
         }
     }
