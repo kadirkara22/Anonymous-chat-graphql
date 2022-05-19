@@ -5,14 +5,14 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
 const wsLink = new GraphQLWsLink(createClient({
-    url: 'ws://localhost:3000/ws',
+    url: 'ws://127.0.0.1:4000/graphql',
     options: {
         reconnect: true
     }
 }));
 
 const httpLink = new HttpLink({
-    uri: 'http://localhost:4000/graphql'
+    uri: 'http://127.0.0.1:4000/graphql'
 });
 
 const splitLink = split(

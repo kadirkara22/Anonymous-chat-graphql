@@ -1,17 +1,30 @@
 .messageContainer {
+  position: absolute;
   margin: 10px;
   flex-direction: column;
 }
 .message {
   display: flex;
-  align-items: center;
   width: fit-content;
   margin: 5px;
   padding: 10px;
-  background: red;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+}
+
+.green {
+  background-color: greenyellow;
+  padding: 5px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.red {
+  background-color: red;
+  padding: 5px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
