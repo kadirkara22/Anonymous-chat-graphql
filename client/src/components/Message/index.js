@@ -1,9 +1,15 @@
 import React from 'react'
-
-const Message = () => {
+import styles from './styles.module.css'
+const Message = ({ messages }) => {
     return (
-        <div>
-            message
+        <div className={styles.messageContainer}>
+            {
+                messages && messages.map(item =>
+                    <span className={styles.message} key={item.userID}>
+                        {item.text}
+                    </span>
+                )
+            }
         </div>
     )
 }

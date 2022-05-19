@@ -1,9 +1,10 @@
 import React from 'react'
-
+import styles from './styles.module.css'
 const MessageInput = () => {
     return (
-        <div>
-            input
+        <div className={styles.messageInput}>
+            <input className={styles.sendMessage}></input>
+            <button className={styles.messageButton}>Send</button>
         </div>
     )
 }

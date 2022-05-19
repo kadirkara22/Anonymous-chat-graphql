@@ -1,7 +1,33 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { split, HttpLink } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
 
+const wsLink = new GraphQLWsLink(createClient({
+    url: 'ws://localhost:3000/ws',
+    options: {
+        reconnect: true
+    }
+}));
+
+const httpLink = new HttpLink({
+    uri: 'http://localhost:4000/graphql'
+});
+
+const splitLink = split(
+    ({ query }) => {
+        const definition = getMainDefinition(query);
+        return (
+            definition.kind === 'OperationDefinition' &&
+            definition.operation === 'subscription'
+        );
+    },
+    wsLink,
+    httpLink,
+);
 const client = new ApolloClient({
-    uri: 'http://127.0.0.1:4000/graphql?query=mutation+createMessage%7B%0A++createMessage%28message%3A%7Btext%3A%22nerdesin%22%7D%29+%7B%0A++++text%0A++++userID%0A++%7D%0A%7D',
+    link: splitLink,
     cache: new InMemoryCache()
 });
 export default client;

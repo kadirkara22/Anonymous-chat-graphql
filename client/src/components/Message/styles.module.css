@@ -1,0 +1,17 @@
+.messageContainer {
+  margin: 10px;
+  flex-direction: column;
+}
+.message {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 5px;
+  padding: 10px;
+  background: red;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}

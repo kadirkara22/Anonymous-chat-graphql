@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Message from '../Message'
+import styles from './styles.module.css'
+const Messages = ({ messages }) => {
 
-const Messages = () => {
+
     return (
-        <div>
-            <Message />
+        <div className={styles.messages}>
+            <Message messages={messages} />
         </div>
     )
 }
